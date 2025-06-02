@@ -1,7 +1,7 @@
 //
 // Created by judoj on 02/06/2025.
 //
-#include "DelayEffect.h"
+#include "../../include/model/effects/DelayEffect.h"
 
 DelayEffect::DelayEffect(const int &sampleRate, const float &delayMix, const float &delayTimeSec) : sampleRate(sampleRate), delayMix(delayMix), delayTimeSec(delayTimeSec) {
 

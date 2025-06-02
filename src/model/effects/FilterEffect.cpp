@@ -1,7 +1,7 @@
 //
 // Created by judoj on 02/06/2025.
 //
-#include "FilterEffect.h"
+#include "../../include/model/effects/FilterEffect.h"
 #include "math.h"
 
 FilterEffect::FilterEffect(const int &sampleRate, const int &cutoff, const float &resonance) : sampleRate(sampleRate), cutoff(cutoff), resonance(resonance) {

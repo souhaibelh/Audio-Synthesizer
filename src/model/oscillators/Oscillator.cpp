@@ -1,4 +1,4 @@
-#include "Oscillator.h"
+#include "../../include/model/oscillators/Oscillator.h"
 #include <cmath>
 #include <iostream>
 //

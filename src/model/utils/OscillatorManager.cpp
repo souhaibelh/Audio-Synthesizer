@@ -1,7 +1,7 @@
 //
 // Created by judoj on 30/05/2025.
 //
-#include "OscillatorManager.h"
+#include "../../include/model/utils/OscillatorManager.h"
 
 OscillatorManager::OscillatorManager(std::unique_ptr<Oscillator> o1, std::unique_ptr<Oscillator> o2)
     : osc1(std::move(o1)), osc2(std::move(o2)) {}

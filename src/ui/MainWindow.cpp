@@ -1,11 +1,11 @@
-#include "MainWindow.h"
+#include "../../include/ui/MainWindow.h"
 #include <cmath>
 #include <functional>
 #include <iostream>
 #include <thread>
 #include <unordered_map>
 #include <vector>
-#include "../model/utils/Parameters.h"
+#include "../../include/model/utils/Parameters.h"
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
@@ -309,6 +309,7 @@ void MainWindow::draw() {
             playNote(220.00f, 1000);  // Q
         }).detach();
     }
+    ImGui::SameLine();
     if (ImGui::Button("sample4")) {
         std::thread([this]() {
             // Section 1 (16 sec)
@@ -380,200 +381,6 @@ void MainWindow::draw() {
             playNote(369.99f, 1000); // U (F#)
             playNote(329.63f, 1000); // G (E)
             playNote(293.66f, 2000); // F (D#)
-        }).detach();
-    }
-    if (ImGui::Button("sample5")) {
-        std::thread([this]() {
-            // Section 1 (16 sec)
-            playNote(220.00f, 500); // Q (A)
-            playNote(246.94f, 250); // S (B)
-            playNote(277.18f, 750); // D (C#)
-            playNote(329.63f, 500); // G (E)
-            playNote(293.66f, 250); // F (D#)
-            playNote(246.94f, 250); // S (B)
-            playNote(220.00f, 1000); // Q (A)
-            playNote(196.00f, 500); // Z (G)
-            playNote(174.61f, 250); // T (F)
-            playNote(196.00f, 250); // Z (G)
-            playNote(220.00f, 500); // Q (A)
-            playNote(246.94f, 750); // S (B)
-            playNote(277.18f, 250); // D (C#)
-            playNote(293.66f, 250); // F (D#)
-            playNote(329.63f, 500); // G (E)
-            playNote(369.99f, 1000); // U (F#)
-
-            // Section 2 (16 sec)
-            playNote(392.00f, 250); // H (G#)
-            playNote(440.00f, 250); // Y (A)
-            playNote(392.00f, 500); // H (G#)
-            playNote(369.99f, 500); // U (F#)
-            playNote(329.63f, 750); // G (E)
-            playNote(293.66f, 250); // F (D#)
-            playNote(277.18f, 500); // D (C#)
-            playNote(246.94f, 1000); // S (B)
-            playNote(220.00f, 500); // Q (A)
-            playNote(196.00f, 250); // Z (G)
-            playNote(174.61f, 250); // T (F)
-            playNote(196.00f, 500); // Z (G)
-            playNote(220.00f, 750); // Q (A)
-            playNote(246.94f, 250); // S (B)
-            playNote(277.18f, 500); // D (C#)
-            playNote(293.66f, 1000); // F (D#)
-
-            // Section 3 (16 sec)
-            playNote(329.63f, 500); // G (E)
-            playNote(349.23f, 500); // U (F)
-            playNote(369.99f, 250); // U (F#)
-            playNote(392.00f, 250); // H (G#)
-            playNote(440.00f, 500); // Y (A)
-            playNote(493.88f, 750); // J (B)
-            playNote(440.00f, 250); // Y (A)
-            playNote(392.00f, 500); // H (G#)
-            playNote(369.99f, 250); // U (F#)
-            playNote(329.63f, 250); // G (E)
-            playNote(293.66f, 500); // F (D#)
-            playNote(277.18f, 750); // D (C#)
-            playNote(246.94f, 250); // S (B)
-            playNote(220.00f, 500); // Q (A)
-            playNote(196.00f, 1000); // Z (G)
-            playNote(174.61f, 500); // T (F)
-
-            // Section 4 (16 sec)
-            playNote(196.00f, 500); // Z (G)
-            playNote(220.00f, 250); // Q (A)
-            playNote(246.94f, 250); // S (B)
-            playNote(277.18f, 500); // D (C#)
-            playNote(293.66f, 500); // F (D#)
-            playNote(329.63f, 500); // G (E)
-            playNote(349.23f, 500); // U (F)
-            playNote(369.99f, 1000); // U (F#)
-            playNote(392.00f, 500); // H (G#)
-            playNote(440.00f, 250); // Y (A)
-            playNote(493.88f, 250); // J (B)
-            playNote(523.25f, 500); // K (C)
-            playNote(493.88f, 750); // J (B)
-            playNote(440.00f, 250); // Y (A)
-            playNote(392.00f, 500); // H (G#)
-            playNote(369.99f, 1000); // U (F#)
-        }).detach();
-    }
-    if (ImGui::Button("sample6")) {
-        std::thread([this]() {
-            // Section A (60 sec) - Intro / Theme
-            playNote(220.00f, 500);  // Q
-            playNote(246.94f, 500);  // S
-            playNote(277.18f, 500);  // D
-            playNote(293.66f, 750);  // F
-            playNote(329.63f, 250);  // G
-            playNote(293.66f, 500);  // F
-            playNote(277.18f, 500);  // D
-            playNote(246.94f, 750);  // S
-            playNote(220.00f, 500);  // Q
-            playNote(196.00f, 500);  // Z
-            playNote(174.61f, 1000); // T
-
-            // Repeat with variation
-            playNote(220.00f, 500);
-            playNote(246.94f, 250);
-            playNote(277.18f, 750);
-            playNote(329.63f, 500);
-            playNote(369.99f, 500);
-            playNote(440.00f, 750);  // Y
-            playNote(493.88f, 250);  // J
-            playNote(440.00f, 500);
-            playNote(392.00f, 500);  // H
-            playNote(369.99f, 750);
-            playNote(329.63f, 500);
-            playNote(293.66f, 500);
-            playNote(277.18f, 750);
-            playNote(246.94f, 250);
-            playNote(220.00f, 500);
-            playNote(196.00f, 1000);
-
-            // Section B (60 sec) - Development
-            playNote(277.18f, 500);
-            playNote(329.63f, 500);
-            playNote(369.99f, 250);
-            playNote(392.00f, 250);
-            playNote(440.00f, 500);
-            playNote(493.88f, 750);
-            playNote(523.25f, 1000);  // K (High C)
-            playNote(493.88f, 500);
-            playNote(440.00f, 500);
-            playNote(392.00f, 750);
-            playNote(369.99f, 250);
-            playNote(329.63f, 250);
-            playNote(293.66f, 500);
-            playNote(277.18f, 500);
-            playNote(246.94f, 750);
-            playNote(220.00f, 1000);
-
-            playNote(196.00f, 500);
-            playNote(174.61f, 500);
-            playNote(196.00f, 250);
-            playNote(220.00f, 250);
-            playNote(246.94f, 500);
-            playNote(277.18f, 500);
-            playNote(293.66f, 750);
-            playNote(329.63f, 500);
-            playNote(369.99f, 500);
-            playNote(392.00f, 1000);
-
-            // Section C (60 sec) - Climax / Variation
-            playNote(440.00f, 250);
-            playNote(493.88f, 250);
-            playNote(523.25f, 500);
-            playNote(587.33f, 750);   // L (D)
-            playNote(659.26f, 1000);  // M (E)
-            playNote(587.33f, 500);
-            playNote(523.25f, 500);
-            playNote(493.88f, 750);
-            playNote(440.00f, 250);
-            playNote(392.00f, 250);
-            playNote(369.99f, 500);
-            playNote(329.63f, 750);
-            playNote(293.66f, 1000);
-            playNote(277.18f, 500);
-            playNote(246.94f, 500);
-            playNote(220.00f, 1000);
-
-            playNote(196.00f, 500);
-            playNote(174.61f, 750);
-            playNote(196.00f, 250);
-            playNote(220.00f, 500);
-            playNote(246.94f, 500);
-            playNote(277.18f, 750);
-            playNote(293.66f, 1000);
-            playNote(329.63f, 500);
-            playNote(369.99f, 500);
-
-            // Section D (60 sec) - Resolution / Outro
-            playNote(329.63f, 500);
-            playNote(293.66f, 500);
-            playNote(277.18f, 750);
-            playNote(246.94f, 250);
-            playNote(220.00f, 1000);
-            playNote(196.00f, 750);
-            playNote(174.61f, 500);
-            playNote(196.00f, 250);
-            playNote(220.00f, 250);
-            playNote(246.94f, 500);
-            playNote(277.18f, 500);
-            playNote(293.66f, 750);
-            playNote(329.63f, 1000);
-            playNote(369.99f, 500);
-            playNote(392.00f, 500);
-            playNote(440.00f, 1000);
-
-            playNote(493.88f, 500);
-            playNote(440.00f, 500);
-            playNote(392.00f, 750);
-            playNote(369.99f, 250);
-            playNote(329.63f, 250);
-            playNote(293.66f, 500);
-            playNote(277.18f, 500);
-            playNote(246.94f, 1000);
-            playNote(220.00f, 1000);
         }).detach();
     }
     ImGui::End();

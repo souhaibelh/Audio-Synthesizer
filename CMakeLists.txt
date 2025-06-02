@@ -12,9 +12,9 @@ include_directories(
 
 add_executable(
         61610.synthetizer
-        main.cpp
-        model/AudioGenerator.cpp
-        ui/MainWindow.cpp
+        src/main.cpp
+        src/model/AudioGenerator.cpp
+        src/ui/MainWindow.cpp
         ./libraries/imgui/imgui.cpp
         ./libraries/imgui/imgui_demo.cpp
         ./libraries/imgui/imgui_draw.cpp
@@ -22,29 +22,29 @@ add_executable(
         ./libraries/imgui/imgui_tables.cpp
         ./libraries/imgui/backends/imgui_impl_sdl3.cpp
         ./libraries/imgui/backends/imgui_impl_sdlrenderer3.cpp
-        model/utils/Parameters.h
-        model/oscillators/Oscillator.h
-        model/oscillators/Oscillator.cpp
-        model/AudioEngine.h
-        model/AudioEngine.cpp
-        model/utils/OscillatorManager.h
-        model/utils/OscillatorManager.cpp
-        model/effects/AudioEffect.h
-        model/effects/MixEffect.h
-        model/effects/MixEffect.cpp
-        model/effects/EnvelopeEffect.h
-        model/effects/EnvelopeEffect.cpp
-        model/effects/FilterEffect.h
-        model/effects/FilterEffect.cpp
-        model/effects/DelayEffect.h
-        model/effects/DelayEffect.cpp
-        model/oscillators/WaveformStrategy.h
-        model/oscillators/SineWaveStrategy.cpp
-        model/oscillators/SineWaveStrategy.h
-        model/oscillators/SquareWaveStrategy.h
-        model/oscillators/SquareWaveStrategy.cpp
-        model/oscillators/SawWaveStrategy.h
-        model/oscillators/SawWaveForm.cpp
+        include/model/utils/Parameters.h
+        include/model/oscillators/Oscillator.h
+        src/model/oscillators/Oscillator.cpp
+        include/model/AudioEngine.h
+        src/model/AudioEngine.cpp
+        include/model/utils/OscillatorManager.h
+        src/model/utils/OscillatorManager.cpp
+        include/model/effects/AudioEffect.h
+        include/model/effects/MixEffect.h
+        src/model/effects/MixEffect.cpp
+        include/model/effects/EnvelopeEffect.h
+        src/model/effects/EnvelopeEffect.cpp
+        include/model/effects/FilterEffect.h
+        src/model/effects/FilterEffect.cpp
+        include/model/effects/DelayEffect.h
+        src/model/effects/DelayEffect.cpp
+        include/model/oscillators/WaveformStrategy.h
+        src/model/oscillators/SineWaveStrategy.cpp
+        include/model/oscillators/SineWaveStrategy.h
+        include/model/oscillators/SquareWaveStrategy.h
+        src/model/oscillators/SquareWaveStrategy.cpp
+        include/model/oscillators/SawWaveStrategy.h
+        src/model/oscillators/SawWaveForm.cpp
 )
 
 if (APPLE)

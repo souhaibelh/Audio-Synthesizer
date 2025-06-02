@@ -1,7 +1,8 @@
-#include "model/AudioGenerator.h"
-#include "ui/MainWindow.h"
-#include "model/utils/Parameters.h"
-#include "model/effects/DelayEffect.h"
+#include "../include/model/AudioGenerator.h"
+#include "../include/ui/MainWindow.h"
+#include "../include/model/utils/Parameters.h"
+#include "../include/model/effects/DelayEffect.h"
+#include "../include/model/effects/FilterEffect.h"
 #define SAMPLE_RATE (44100)
 #define SCALE (0.5)
 

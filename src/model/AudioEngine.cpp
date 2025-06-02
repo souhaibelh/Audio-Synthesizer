@@ -1,7 +1,7 @@
 //
 // Created by judoj on 30/05/2025.
 //
-#include "AudioEngine.h"
+#include "../../include/model/AudioEngine.h"
 #include <iostream>
 
 AudioEngine::AudioEngine(

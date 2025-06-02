@@ -1,7 +1,7 @@
 //
 // Created by judoj on 31/05/2025.
 //
-#include "MixEffect.h"
+#include "../../include/model/effects/MixEffect.h"
 
 void MixEffect::process(float *audioBuffer, const long &framesPerBuffer) {
     this->osc1->fill(audioBuffer, framesPerBuffer);

@@ -1,8 +1,8 @@
-#include "AudioGenerator.h"
+#include "../../include/model/AudioGenerator.h"
 #include <iostream>
 #include <cmath>
-#include "utils/Parameters.h"
-#include "utils/OscillatorManager.h"
+#include "../../include/model/utils/Parameters.h"
+#include "../../include/model/utils/OscillatorManager.h"
 
 constexpr int FRAMES_PER_BUFFER {256};
 constexpr int SAMPLE_RATE {44100};

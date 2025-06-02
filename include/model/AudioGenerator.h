@@ -3,8 +3,8 @@
 
 #include "AudioEngine.h"
 #include "utils/OscillatorManager.h"
-#include "utils/Parameters.h"
 #include "portaudio.h"
+#include "utils/Parameters.h"
 
 class AudioGenerator {
 public:

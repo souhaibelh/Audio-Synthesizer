@@ -1,7 +1,7 @@
 //
 // Created by judoj on 01/06/2025.
 //
-#include "EnvelopeEffect.h"
+#include "../../include/model/effects/EnvelopeEffect.h"
 
 #include <iostream>
 
