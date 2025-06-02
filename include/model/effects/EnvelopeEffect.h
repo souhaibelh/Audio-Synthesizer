@@ -6,6 +6,8 @@
 #define ENVELOPEEFFECT_H
 #include "AudioEffect.h"
 
+// Class that represents an envelope effect, it makes the start smoother and the end of the note too
+
 class EnvelopeEffect : public AudioEffect {
 private:
     const float& attackTime;
@@ -24,6 +26,8 @@ public:
         const double& onTime,
         const double& currentTime
     );
+
+    // Method that applies a delay effect to the audio buffer
     void process(float* audioBuffer, const long& framesPerBuffer) override;
 };
 

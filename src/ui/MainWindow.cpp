@@ -141,10 +141,10 @@ void MainWindow::delayOptions() {
 void MainWindow::playNote(float frequency, int durationMs) {
     auto start = std::chrono::steady_clock::now();
     parameters.note.noteOnTime = parameters.currentTime;
+    parameters.note.isOn = true;
+    parameters.note.frequency = frequency;
 
     while (!stopSamplesThread.load()) {
-        parameters.note.isOn = true;
-        parameters.note.frequency = frequency;
 
         auto now = std::chrono::steady_clock::now();
         auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count();

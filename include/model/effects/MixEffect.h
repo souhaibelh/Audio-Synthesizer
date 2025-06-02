@@ -9,6 +9,8 @@
 #include "AudioEffect.h"
 #include "../oscillators/Oscillator.h"
 
+// Class that represents a mix effect
+
 class MixEffect : public AudioEffect {
 private:
     Oscillator* osc1 = nullptr;

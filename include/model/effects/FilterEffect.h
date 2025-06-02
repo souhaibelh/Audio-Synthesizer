@@ -6,6 +6,8 @@
 #define FILTEREFFECT_H
 #include "AudioEffect.h"
 
+// Class that represents a low pass filter
+
 class FilterEffect : public AudioEffect {
 private:
     const int& sampleRate;

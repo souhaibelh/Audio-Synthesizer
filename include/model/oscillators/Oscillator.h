@@ -10,9 +10,6 @@
 
 class WaveformStrategy;
 
-inline static const float defaultFreq = 440.0f;
-inline static const float defaultOffset = 0.0f;
-
 class Oscillator {
 protected:
     float phase = 0.0f;
