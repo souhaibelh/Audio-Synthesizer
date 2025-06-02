@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.31)
-project(untitled4)
+project(61610.synthetizer)
 
 set(CMAKE_CXX_STANDARD 23)
 
@@ -11,7 +11,7 @@ include_directories(
 )
 
 add_executable(
-        untitled4
+        61610.synthetizer
         main.cpp
         model/AudioGenerator.cpp
         ui/MainWindow.cpp
@@ -60,29 +60,29 @@ if (APPLE)
             "${CMAKE_SOURCE_DIR/libraries/portaudio/lib/macos/libportaudio.a}"
     )
     target_link_libraries(
-            untitled4 PRIVATE
+            61610.synthetizer PRIVATE
             "${CMAKE_SOURCE_DIR}/libraries/sdl/lib/macos/SDL3.framework"
             "-framework CoreFoundation"
     )
 elseif (WIN32)
     target_link_libraries(
-            untitled4 PRIVATE
+            61610.synthetizer PRIVATE
             "${CMAKE_SOURCE_DIR}/libraries/sdl/lib/win32/sdl3.dll"
     )
     target_link_libraries(
-            untitled4 PRIVATE
+            61610.synthetizer PRIVATE
             "${CMAKE_SOURCE_DIR}/libraries/portaudio/lib/win32/portaudio_x64.dll"
     )
-    add_custom_command(TARGET untitled4 POST_BUILD
+    add_custom_command(TARGET 61610.synthetizer POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${CMAKE_SOURCE_DIR}/libraries/portaudio/lib/win32/portaudio_x64.dll"
-            "$<TARGET_FILE_DIR:untitled4>/portaudio_x64.dll"
+            "$<TARGET_FILE_DIR:61610.synthetizer>/portaudio_x64.dll"
     )
     add_custom_command(
-            TARGET untitled4 POST_BUILD
+            TARGET 61610.synthetizer POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${CMAKE_CURRENT_SOURCE_DIR}/libraries/sdl/lib/win32/sdl3.dll"
-            "$<TARGET_FILE_DIR:untitled4>"
+            "$<TARGET_FILE_DIR:61610.synthetizer>"
     )
 elseif (UNIX)
     target_link_libraries(
@@ -92,7 +92,7 @@ elseif (UNIX)
             "${CMAKE_SOURCE_DIR}/libraries/sdl/lib/linux-x86_64/libSDL3.a"
     )
     target_link_libraries(
-            untitled4 PRIVATE
+            61610.synthetizer PRIVATE
             "-ljack"
             "${CMAKE_SOURCE_DIR}/libraries/portaudio/lib/linux-x86_64/libportaudio.a"
     )
