@@ -25,7 +25,7 @@ void MainWindow::init() {
     }
     // Create window with SDL_Renderer graphics context
     Uint32 window_flags = SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE;
-    window = SDL_CreateWindow("", 500, 300, window_flags);
+    window = SDL_CreateWindow("", 500, 325, window_flags);
     if (nullptr == window) {
         SDL_Log("Error: SDL_CreateWindow(): %s\n", SDL_GetError());
         return;
@@ -142,7 +142,7 @@ void MainWindow::playNote(float frequency, int durationMs) {
     auto start = std::chrono::steady_clock::now();
     parameters.note.noteOnTime = parameters.currentTime;
 
-    while (true) {
+    while (!stopSamplesThread.load()) {
         parameters.note.isOn = true;
         parameters.note.frequency = frequency;
 
@@ -161,6 +161,7 @@ void MainWindow::handleNoteTrigger() {
 
     for (int i = 0; i < 12; i++) {
         if (ImGui::Button(std::to_string(i).c_str()) || ImGui::IsItemActive()) {
+            stopSamplesThread.store(true);
             isNowOn = true;
             parameters.note.frequency = 220.0f * std::pow(2, i / 12.0f);
         }
@@ -184,6 +185,7 @@ void MainWindow::handleNoteTrigger() {
 
     for (const auto& [key, index] : keyToNoteIndex) {
         if (ImGui::IsKeyDown(key)) {
+            stopSamplesThread.store(true);
             isNowOn = true;
             parameters.note.frequency = 220.0f * std::pow(2, index / 12.0f);
         }
@@ -208,180 +210,78 @@ void MainWindow::draw() {
     delayOptions();
     handleNoteTrigger();
     ImGui::NewLine();
-    if (ImGui::Button("sample1")) {
-        std::thread([this]() {
-            playNote(261.63, 500);
-            playNote(261.63, 500);
-            playNote(349.23, 500);
-            playNote(349.23, 500);
-            playNote(392.00, 500);
-            playNote(392.00, 500);
-            playNote(349.23, 1000);
-            playNote(369.99, 500);
-            playNote(369.99, 500);
-            playNote(329.63, 500);
-            playNote(329.63, 500);
-            playNote(293.66, 500);
-            playNote(293.66, 500);
-            playNote(277.18, 1000);
-            playNote(261.63, 500);
-            playNote(261.63, 500);
-            playNote(349.23, 500);
-            playNote(349.23, 500);
-            playNote(392.00, 500);
-            playNote(392.00, 500);
-            playNote(349.23, 1000);
-            playNote(369.99, 500);
-            playNote(369.99, 500);
-            playNote(329.63, 500);
-            playNote(329.63, 500);
-            playNote(293.66, 500);
-            playNote(293.66, 500);
-            playNote(277.18, 1000);
-        }).detach();
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("sample2")) {
-        std::thread([this]() {
-            playNote(220.00, 500);
-            playNote(246.94, 500);
-            playNote(277.18, 500);
-            playNote(246.94, 500);
-            playNote(220.00, 500);
-            playNote(220.00, 500);
-            playNote(220.00, 1000);
 
-            playNote(246.94, 500);
-            playNote(246.94, 500);
-            playNote(246.94, 1000);
-            playNote(220.00, 500);
-            playNote(349.23, 500);
-            playNote(349.23, 1000);
+    if (ImGui::Button("SAMPLE")) {
+        if (samplesThread.joinable()) {
+            stopSamplesThread.store(true);
+            samplesThread.detach();
+        }
 
-            playNote(220.00, 500);
-            playNote(246.94, 500);
-            playNote(277.18, 500);
-            playNote(246.94, 500);
-            playNote(220.00, 500);
-            playNote(220.00, 500);
-            playNote(220.00, 1000);
-
-            playNote(246.94, 500);
-            playNote(246.94, 500);
-            playNote(220.00, 500);
-            playNote(349.23, 500);
-            playNote(220.00, 1000);
-        }).detach();
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("sample3")) {
-        std::thread([this]() {
-            playNote(220.00f, 500);   // Q
-            playNote(220.00f, 500);   // Q
-            playNote(246.94f, 500);   // S
-            playNote(277.18f, 500);   // D
-            playNote(293.66f, 500);   // F
-            playNote(293.66f, 500);   // F
-            playNote(246.94f, 1000);  // S
-
-            playNote(220.00f, 500);   // Q
-            playNote(220.00f, 500);   // Q
-            playNote(246.94f, 500);   // S
-            playNote(277.18f, 500);   // D
-            playNote(293.66f, 500);   // F
-            playNote(293.66f, 500);   // F
-            playNote(246.94f, 1000);  // S
-
-            playNote(277.18f, 500);   // D
-            playNote(277.18f, 500);   // D
-            playNote(261.63f, 500);   // E
-            playNote(261.63f, 500);   // E
-            playNote(293.66f, 500);   // F
-            playNote(329.63f, 500);   // G
-            playNote(392.00f, 1000);  // U
-
-            playNote(293.66f, 500);   // F
-            playNote(293.66f, 500);   // F
-            playNote(261.63f, 500);   // E
-            playNote(261.63f, 500);   // E
-            playNote(277.18f, 500);   // D
-            playNote(246.94f, 500);   // S
-            playNote(220.00f, 1000);  // Q
-        }).detach();
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("sample4")) {
-        std::thread([this]() {
-            // Section 1 (16 sec)
-            playNote(220.00f, 500); // Q (A)
-            playNote(246.94f, 500); // S (B)
-            playNote(277.18f, 500); // D (C#)
-            playNote(293.66f, 500); // F (D#)
-            playNote(329.63f, 250); // G (E)
-            playNote(293.66f, 250); // F (D#)
-            playNote(277.18f, 500); // D (C#)
-            playNote(246.94f, 1000); // S (B)
-            playNote(220.00f, 500); // Q (A)
-            playNote(220.00f, 500); // Q (A)
-            playNote(246.94f, 500); // S (B)
-            playNote(277.18f, 500); // D (C#)
-            playNote(293.66f, 250); // F (D#)
-            playNote(329.63f, 250); // G (E)
-            playNote(369.99f, 500); // U (F#)
-            playNote(329.63f, 1000); // G (E)
-
-            // Section 2 (16 sec)
-            playNote(293.66f, 500); // F (D#)
-            playNote(277.18f, 500); // D (C#)
-            playNote(246.94f, 500); // S (B)
-            playNote(220.00f, 1000); // Q (A)
-            playNote(246.94f, 500); // S (B)
-            playNote(277.18f, 500); // D (C#)
-            playNote(293.66f, 500); // F (D#)
-            playNote(329.63f, 500); // G (E)
-            playNote(293.66f, 250); // F (D#)
-            playNote(277.18f, 250); // D (C#)
-            playNote(246.94f, 500); // S (B)
-            playNote(220.00f, 1000); // Q (A)
-            playNote(196.00f, 500); // Z (G)
-            playNote(220.00f, 500); // Q (A)
-            playNote(246.94f, 500); // S (B)
-            playNote(277.18f, 1000); // D (C#)
-
-            // Section 3 (16 sec)
-            playNote(293.66f, 500); // F (D#)
-            playNote(329.63f, 500); // G (E)
-            playNote(369.99f, 500); // U (F#)
-            playNote(392.00f, 500); // H (G#)
-            playNote(440.00f, 500); // Y (A)
-            playNote(392.00f, 500); // H (G#)
-            playNote(369.99f, 500); // U (F#)
-            playNote(329.63f, 1000); // G (E)
-            playNote(293.66f, 500); // F (D#)
-            playNote(277.18f, 500); // D (C#)
-            playNote(246.94f, 500); // S (B)
-            playNote(220.00f, 500); // Q (A)
-            playNote(196.00f, 500); // Z (G)
-            playNote(220.00f, 500); // Q (A)
-            playNote(246.94f, 1000); // S (B)
-
-            // Section 4 (16 sec)
-            playNote(277.18f, 500); // D (C#)
-            playNote(246.94f, 500); // S (B)
-            playNote(220.00f, 500); // Q (A)
-            playNote(196.00f, 500); // Z (G)
-            playNote(174.61f, 500); // T (F)
-            playNote(196.00f, 500); // Z (G)
-            playNote(220.00f, 500); // Q (A)
-            playNote(246.94f, 500); // S (B)
-            playNote(277.18f, 500); // D (C#)
-            playNote(293.66f, 500); // F (D#)
-            playNote(329.63f, 500); // G (E)
-            playNote(349.23f, 500); // U (F)
-            playNote(369.99f, 1000); // U (F#)
-            playNote(329.63f, 1000); // G (E)
-            playNote(293.66f, 2000); // F (D#)
-        }).detach();
+        stopSamplesThread.store(false);
+        samplesThread = std::thread([this]() {
+            playNote(220.00f, 500);
+            playNote(246.94f, 500);
+            playNote(277.18f, 500);
+            playNote(293.66f, 500);
+            playNote(329.63f, 250);
+            playNote(293.66f, 250);
+            playNote(277.18f, 500);
+            playNote(246.94f, 1000);
+            playNote(220.00f, 500);
+            playNote(220.00f, 500);
+            playNote(246.94f, 500);
+            playNote(277.18f, 500);
+            playNote(293.66f, 250);
+            playNote(329.63f, 250);
+            playNote(369.99f, 500);
+            playNote(329.63f, 1000);
+            playNote(293.66f, 500);
+            playNote(277.18f, 500);
+            playNote(246.94f, 500);
+            playNote(220.00f, 1000);
+            playNote(246.94f, 500);
+            playNote(277.18f, 500);
+            playNote(293.66f, 500);
+            playNote(329.63f, 500);
+            playNote(293.66f, 250);
+            playNote(277.18f, 250);
+            playNote(246.94f, 500);
+            playNote(220.00f, 1000);
+            playNote(196.00f, 500);
+            playNote(220.00f, 500);
+            playNote(246.94f, 500);
+            playNote(277.18f, 1000);
+            playNote(293.66f, 500);
+            playNote(329.63f, 500);
+            playNote(369.99f, 500);
+            playNote(392.00f, 500);
+            playNote(440.00f, 500);
+            playNote(392.00f, 500);
+            playNote(369.99f, 500);
+            playNote(329.63f, 1000);
+            playNote(293.66f, 500);
+            playNote(277.18f, 500);
+            playNote(246.94f, 500);
+            playNote(220.00f, 500);
+            playNote(196.00f, 500);
+            playNote(220.00f, 500);
+            playNote(246.94f, 1000);
+            playNote(277.18f, 500);
+            playNote(246.94f, 500);
+            playNote(220.00f, 500);
+            playNote(196.00f, 500);
+            playNote(174.61f, 500);
+            playNote(196.00f, 500);
+            playNote(220.00f, 500);
+            playNote(246.94f, 500);
+            playNote(277.18f, 500);
+            playNote(293.66f, 500);
+            playNote(329.63f, 500);
+            playNote(349.23f, 500);
+            playNote(369.99f, 1000);
+            playNote(329.63f, 1000);
+            playNote(293.66f, 2000);
+        });
     }
     ImGui::End();
 }
