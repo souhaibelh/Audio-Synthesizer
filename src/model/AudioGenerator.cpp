@@ -24,15 +24,19 @@ int AudioGenerator::audioCallback(const void *inputBuffer,
     auto* out = static_cast<float*>(outputBuffer);
     (void)inputBuffer;
 
-    currentTimeInSeconds += static_cast<double>(framesPerBuffer) / SAMPLE_RATE;
-    context->synth->currentTime = currentTimeInSeconds;
+    {
+        std::unique_lock lock(context->synth->mutex);
+        currentTimeInSeconds += static_cast<double>(framesPerBuffer) / SAMPLE_RATE;
+        context->synth->currentTime = currentTimeInSeconds;
+    }
+
+    std::shared_lock noteLock(context->synth->noteMutex);
+    std::shared_lock lock(context->synth->mutex);
 
     Oscillator* osc1 = context->oscManager->getOsc1();
     Oscillator* osc2 = context->oscManager->getOsc2();
     context->oscManager->setStrategyOsc1(context->synth->osc1.waveform);
     context->oscManager->setStrategyOsc2(context->synth->osc2.waveform);
-
-    std::shared_lock lock(context->synth->mutex);
 
     if (context->synth->osc1.enabled && context->synth->osc2.enabled) {
         context->engine->setMixerOsc1(osc1);

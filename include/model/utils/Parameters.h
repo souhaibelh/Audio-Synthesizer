@@ -41,6 +41,7 @@ struct Note {
 
 struct SynthParameters {
     std::shared_mutex mutex;
+    std::shared_mutex noteMutex;
     OscillatorSettings osc1;
     OscillatorSettings osc2;
     ADSR envelope;

@@ -9,6 +9,9 @@
 int main() {
     SynthParameters parameters;
 
+    std::shared_lock noteLock(parameters.noteMutex);
+    std::shared_lock lock(parameters.mutex);
+
     FilterEffect filter(SAMPLE_RATE, parameters.filter.cutoff, parameters.filter.resonance);
     EnvelopeEffect envelope(
         parameters.envelope.attack,
@@ -23,8 +26,10 @@ int main() {
 
     AudioEngine engine(mixer, envelope, filter, delay);
 
-    auto osc1 = std::make_unique<Oscillator>(SAMPLE_RATE, SCALE, parameters.note.frequency, parameters.osc1.frequencyOffset);
-    auto osc2 = std::make_unique<Oscillator>(SAMPLE_RATE, SCALE, parameters.note.frequency, parameters.osc2.frequencyOffset);
+    auto osc1 = std::make_unique<Oscillator>(SAMPLE_RATE, SCALE, parameters.note.frequency,
+                                             parameters.osc1.frequencyOffset);
+    auto osc2 = std::make_unique<Oscillator>(SAMPLE_RATE, SCALE, parameters.note.frequency,
+                                             parameters.osc2.frequencyOffset);
     OscillatorManager oscManager(std::move(osc1), std::move(osc2));
 
     MainWindow mainWindow(parameters);

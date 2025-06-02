@@ -108,6 +108,7 @@ void MainWindow::run() {
 }
 
 void MainWindow::oscillatorOptions() {
+    std::unique_lock lock(parameters.mutex);
     ImGui::Checkbox("OSC 1", &parameters.osc1.enabled);
 
     static std::vector oscillators = {
@@ -121,18 +122,21 @@ void MainWindow::oscillatorOptions() {
 }
 
 void MainWindow::envelopeOptions() {
+    std::unique_lock lock(parameters.mutex);
     ImGui::SliderFloat("Attack", &parameters.envelope.attack, 0.0f, 1.0f);
 
     ImGui::SliderFloat("Release", &parameters.envelope.release, 0.0f, 2.0f);
 }
 
 void MainWindow::filterOptions() {
+    std::unique_lock lock(parameters.mutex);
     ImGui::SliderInt("Filter Cutoff", &parameters.filter.cutoff, 20, 20000);
 
     ImGui::SliderFloat("Filter Resonance", &parameters.filter.resonance, 0.0f, 1.0f);
 }
 
 void MainWindow::delayOptions() {
+    std::unique_lock lock(parameters.mutex);
     ImGui::SliderFloat("Delay Time", &parameters.delay.time, 0.1f, 2.0f);
 
     ImGui::SliderFloat("Delay Mix", &parameters.delay.mix, 0.0f, 1.0f);
@@ -140,9 +144,13 @@ void MainWindow::delayOptions() {
 
 void MainWindow::playNote(float frequency, int durationMs) {
     auto start = std::chrono::steady_clock::now();
-    parameters.note.noteOnTime = parameters.currentTime;
-    parameters.note.isOn = true;
-    parameters.note.frequency = frequency;
+
+    {
+        std::unique_lock lock(parameters.noteMutex);
+        parameters.note.noteOnTime = parameters.currentTime;
+        parameters.note.isOn = true;
+        parameters.note.frequency = frequency;
+    }
 
     while (!stopSamplesThread.load()) {
 
@@ -156,6 +164,8 @@ void MainWindow::playNote(float frequency, int durationMs) {
 }
 
 void MainWindow::handleNoteTrigger() {
+    std::unique_lock lock(parameters.noteMutex);
+
     bool wasOn = parameters.note.isOn;
     bool isNowOn = false;
 
@@ -201,6 +211,7 @@ void MainWindow::handleNoteTrigger() {
 }
 
 void MainWindow::draw() {
+
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
     ImGui::Begin("Synthetizer");
