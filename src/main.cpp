@@ -9,9 +9,6 @@
 int main() {
     SynthParameters parameters;
 
-    std::shared_lock noteLock(parameters.noteMutex);
-    std::shared_lock lock(parameters.mutex);
-
     FilterEffect filter(SAMPLE_RATE, parameters.filter.cutoff, parameters.filter.resonance);
     EnvelopeEffect envelope(
         parameters.envelope.attack,

@@ -9,7 +9,7 @@ DelayEffect::DelayEffect(const int &sampleRate, const float &delayMix, const flo
 
 
 void DelayEffect::process(float *audioBuffer, const long &framesPerBuffer) {
-    static const int bufferSize = 48000; // total samples per channel in delay buffer
+    static const int bufferSize = 48000;
     static float delayBufferL[bufferSize] = {0.0f};
     static float delayBufferR[bufferSize] = {0.0f};
     static int writeIndex = 0;
