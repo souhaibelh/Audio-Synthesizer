@@ -6,7 +6,7 @@
 
 int main() {
     SynthParameters parameters;
-    int sampleRate = 44100;
+    int sampleRate = 48000;
     double scale = 0.5;
 
     FilterEffect filter(sampleRate, parameters.filter.cutoff, parameters.filter.resonance);

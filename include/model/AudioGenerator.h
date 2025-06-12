@@ -15,6 +15,7 @@ private:
     AudioEngine& audioEngine;
     SynthParameters& parameters;
     AudioContext audioContext;
+    PaStream *stream = nullptr;
     static int audioCallback( const void *inputBuffer, void *outputBuffer,
                               unsigned long framesPerBuffer,
                               const PaStreamCallbackTimeInfo* timeInfo,

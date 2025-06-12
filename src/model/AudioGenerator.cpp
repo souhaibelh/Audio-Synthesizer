@@ -4,7 +4,7 @@
 #include "../../include/model/utils/Parameters.h"
 #include "../../include/model/utils/OscillatorManager.h"
 
-constexpr int FRAMES_PER_BUFFER {256};
+constexpr int FRAMES_PER_BUFFER {1024};
 constexpr int SAMPLE_RATE {44100};
 
 AudioGenerator::AudioGenerator(SynthParameters &parameters, AudioEngine &engine, OscillatorManager& oscManager) :
@@ -43,16 +43,18 @@ int AudioGenerator::audioCallback(const void *inputBuffer,
         context->engine->setMixerOsc1(osc1);
         context->engine->setMixerOsc2(osc2);
         context->engine->mix(out, framesPerBuffer);
+        context->engine->process(out, framesPerBuffer);
+        context->engine->setAmplitude(0.2f, out, framesPerBuffer);
     } else if (context->synth->osc1.enabled) {
         osc1->fill(out, framesPerBuffer);
+        context->engine->process(out, framesPerBuffer);
+        context->engine->setAmplitude(0.2f, out, framesPerBuffer);
     } else if (context->synth->osc2.enabled) {
         osc2->fill(out, framesPerBuffer);
-    } else {
-        std::fill_n(out, framesPerBuffer * 2, 0.0f);
+        context->engine->process(out, framesPerBuffer);
+        context->engine->setAmplitude(0.2f, out, framesPerBuffer);
     }
-
-    context->engine->process(out, framesPerBuffer);
-    context->engine->setAmplitude(0.2f, out, framesPerBuffer);
+    
     return 0;
 }
 
@@ -64,21 +66,24 @@ void AudioGenerator::init() {
         return;
     }
 
-    PaError errorStream;
-    PaStream *stream;
+    PaError errorStream = Pa_OpenDefaultStream(&stream,
+                                               0,
+                                               2,
+                                               paFloat32,
+                                               SAMPLE_RATE,
+                                               FRAMES_PER_BUFFER,
+                                               audioCallback,
+                                               &audioContext );
+    if (errorStream != paNoError) {
+        std::cerr << "PortAudio error in Pa_OpenDefaultStream(): "
+                  << Pa_GetErrorText(errorStream) << std::endl;
+        return;
+    }
 
-    errorStream = Pa_OpenDefaultStream(&stream,
-                                       0,
-                                       2,
-                                       paFloat32,
-                                       SAMPLE_RATE,
-                                       FRAMES_PER_BUFFER,
-                                       audioCallback,
-                                       &audioContext );
-
-    errorStream = Pa_StartStream( stream );
-    if( errorStream != paNoError ) {
+    errorStream = Pa_StartStream(stream);
+    if (errorStream != paNoError) {
         std::cerr << "PortAudio error in Pa_StartStream(): "
-                  << Pa_GetErrorText( errorStream ) << std::endl;
+                  << Pa_GetErrorText(errorStream) << std::endl;
+        return;
     }
 }
