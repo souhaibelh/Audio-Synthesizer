@@ -15,7 +15,7 @@ void DelayEffect::process(float *audioBuffer, const long &framesPerBuffer) {
     static int writeIndex = 0;
 
     int delaySamples = static_cast<int>((delayTimeSec * sampleRate)) % sampleRate;
-    int readIndex = (writeIndex - delaySamples + bufferSize) % bufferSize;
+    int readIndex = (writeIndex - delaySamples + sampleRate) % sampleRate;
 
     for (int i = 0; i < framesPerBuffer; ++i) {
         int bufferPos = 2 * i;
@@ -35,8 +35,8 @@ void DelayEffect::process(float *audioBuffer, const long &framesPerBuffer) {
         delayBufferL[writeIndex] = outL;
         delayBufferR[writeIndex] = outR;
 
-        writeIndex = (writeIndex + 1) % bufferSize;
-        readIndex  = (readIndex + 1) % bufferSize;
+        writeIndex = (writeIndex + 1) % sampleRate;
+        readIndex  = (readIndex + 1) % sampleRate;
     }
 }
 
