@@ -3,13 +3,13 @@
 #include "../include/model/utils/Parameters.h"
 #include "../include/model/effects/DelayEffect.h"
 #include "../include/model/effects/FilterEffect.h"
-#define SAMPLE_RATE (44100)
-#define SCALE (0.5)
 
 int main() {
     SynthParameters parameters;
+    int sampleRate = 44100;
+    double scale = 0.5;
 
-    FilterEffect filter(SAMPLE_RATE, parameters.filter.cutoff, parameters.filter.resonance);
+    FilterEffect filter(sampleRate, parameters.filter.cutoff, parameters.filter.resonance);
     EnvelopeEffect envelope(
         parameters.envelope.attack,
         parameters.envelope.release,
@@ -19,13 +19,13 @@ int main() {
         parameters.currentTime
     );
     MixEffect mixer;
-    DelayEffect delay(SAMPLE_RATE, parameters.delay.mix, parameters.delay.time);
+    DelayEffect delay(sampleRate, parameters.delay.mix, parameters.delay.time);
 
     AudioEngine engine(mixer, envelope, filter, delay);
 
-    auto osc1 = std::make_unique<Oscillator>(SAMPLE_RATE, SCALE, parameters.note.frequency,
+    auto osc1 = std::make_unique<Oscillator>(sampleRate, scale, parameters.note.frequency,
                                              parameters.osc1.frequencyOffset);
-    auto osc2 = std::make_unique<Oscillator>(SAMPLE_RATE, SCALE, parameters.note.frequency,
+    auto osc2 = std::make_unique<Oscillator>(sampleRate, scale, parameters.note.frequency,
                                              parameters.osc2.frequencyOffset);
     OscillatorManager oscManager(std::move(osc1), std::move(osc2));
 

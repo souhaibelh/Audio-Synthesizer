@@ -35,6 +35,7 @@ int AudioGenerator::audioCallback(const void *inputBuffer,
 
     Oscillator* osc1 = context->oscManager->getOsc1();
     Oscillator* osc2 = context->oscManager->getOsc2();
+    context->oscManager->setStrategyOsc2(0);
     context->oscManager->setStrategyOsc1(context->synth->osc1.waveform);
     context->oscManager->setStrategyOsc2(context->synth->osc2.waveform);
 

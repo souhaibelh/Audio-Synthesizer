@@ -111,9 +111,7 @@ void MainWindow::oscillatorOptions() {
     std::unique_lock lock(parameters.mutex);
     ImGui::Checkbox("OSC 1", &parameters.osc1.enabled);
 
-    static std::vector oscillators = {
-        "SINE", "SQUARE", "SAW"
-    };
+    static std::vector oscillators = { "SINE", "SQUARE", "SAW" };
     ImGui::Combo("OSC1 Waveform", &parameters.osc1.waveform, oscillators.data(), static_cast<int>(oscillators.size()));
 
     ImGui::SliderFloat("OSC1 Frequency Offset", &parameters.osc1.frequencyOffset, -5, 5);
@@ -225,7 +223,7 @@ void MainWindow::draw() {
     if (ImGui::Button("SAMPLE")) {
         if (samplesThread.joinable()) {
             stopSamplesThread.store(true);
-            samplesThread.detach();
+            samplesThread.join();
         }
 
         stopSamplesThread.store(false);

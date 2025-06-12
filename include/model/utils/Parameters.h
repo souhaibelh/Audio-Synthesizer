@@ -4,7 +4,6 @@
 
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
-#include <atomic>
 #include <mutex>
 #include <shared_mutex>
 

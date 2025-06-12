@@ -2,6 +2,7 @@
 #ifndef TESTINSTRUCT_MAINWINDOW_H
 #define TESTINSTRUCT_MAINWINDOW_H
 #include <string>
+#include <atomic>
 #include <bits/std_thread.h>
 #include <SDL3/SDL.h>
 #include "../model/utils/Parameters.h"
