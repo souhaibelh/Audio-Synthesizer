@@ -4,8 +4,8 @@
 #include "../../include/model/utils/Parameters.h"
 #include "../../include/model/utils/OscillatorManager.h"
 
-constexpr int FRAMES_PER_BUFFER {1024};
-constexpr int SAMPLE_RATE {44100};
+constexpr int FRAMES_PER_BUFFER {256};
+constexpr int SAMPLE_RATE {48000};
 
 AudioGenerator::AudioGenerator(SynthParameters &parameters, AudioEngine &engine, OscillatorManager& oscManager) :
     parameters(parameters), audioEngine(engine), audioContext{ &parameters, &engine, &oscManager } {

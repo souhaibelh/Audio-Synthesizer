@@ -87,13 +87,9 @@ elseif (WIN32)
 elseif (UNIX)
     target_link_libraries(
             61610.synthetizer PRIVATE
-            "-ldl"
-            "-ljack"
-            "${CMAKE_SOURCE_DIR}/libraries/sdl/lib/linux-x86_64/libSDL3.a"
-    )
-    target_link_libraries(
-            61610.synthetizer PRIVATE
-            "-ljack"
             "${CMAKE_SOURCE_DIR}/libraries/portaudio/lib/linux-x86_64/libportaudio.a"
+            -ljack
+            -ldl
+            "${CMAKE_SOURCE_DIR}/libraries/sdl/lib/linux-x86_64/libSDL3.a"
     )
 endif ()
