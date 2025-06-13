@@ -53,6 +53,8 @@ int AudioGenerator::audioCallback(const void *inputBuffer,
         osc2->fill(out, framesPerBuffer);
         context->engine->process(out, framesPerBuffer);
         context->engine->setAmplitude(0.2f, out, framesPerBuffer);
+    } else {
+        std::fill_n(out, framesPerBuffer * 2, 0.0f);
     }
     
     return 0;
