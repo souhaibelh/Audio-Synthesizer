@@ -16,35 +16,20 @@ waveform selection, filters, delay effects, and basic note playback through eith
 keyboard or GUI buttons.
 
 ## Features
-<ol>
-  <li>
-    Oscillators
-    <ol>
-      <li>Oscillator 1: square, saw, or sine waveforms with optional frequency offset<li>
-      <li>Oscillator 2: square, saw, or sine waveforms.</li>  
-    </ol>
-  </li>
-  <li>
-    Envelopes & Filters
-    <ol>
-      <li>Attack & Release controls.<li>
-      <li>Filter Cutoff and Filter Resonance.</li>  
-    </ol>
-  </li>  
-  <li>
-    Delay Effects
-    <ol>
-      <li>Adjustable Delay Time and Delay Mix.<li>
-    </ol>
-  </li>
-  <li>
-    Playback
-    <ol>
-      <li>12 playable notes using keyboard or on-screen buttons<li>
-      <li>"Sample" button to play a preloaded audio sample.</li>
-    </ol>
-  </li>  
-</ol>
+- **Oscillators**
+  - Oscillator 1: square, saw, or sine waveforms with optional frequency offset  
+  - Oscillator 2: square, saw, or sine waveforms  
+
+- **Envelopes & Filters**
+  - Attack & Release controls  
+  - Filter Cutoff and Filter Resonance  
+
+- **Delay Effects**
+  - Adjustable Delay Time and Delay Mix  
+
+- **Playback**
+  - 12 playable notes using keyboard or on-screen buttons  
+  - "Sample" button to play a preloaded audio sample  
 
 ## Tech Stack
 <p align="center">
@@ -67,9 +52,9 @@ Make sure you have the following installed on your system:
 - **Git**
 
 ### Installation
-- Clone the project: ```bash git clone https://github.com/yourusername/Audio-Synthesizer.git```
-- Open the project's root folder: ```bash cd Audio-Synthesizer```
-- Create and enter the build directory: ```bash mkdir build && cd build```
-- Run ```bash cmake -G "MinGW Makefiles" ..```
-- Run ```bash cmake --build .```
+- Clone the project: ```git clone https://github.com/yourusername/Audio-Synthesizer.git```
+- Open the project's root folder: ```cd Audio-Synthesizer```
+- Create and enter the build directory: ```mkdir build && cd build```
+- Run ```cmake -G "MinGW Makefiles" ..```
+- Run ```cmake --build .```
 - Run the .exe: 61610.synthetizer
