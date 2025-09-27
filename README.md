@@ -14,7 +14,12 @@ Audio synthesizer that allows to play notes using multiple waveforms (sine, saw,
 ## About
 A simple audio synthesizer built with C++ and ImGui. It supports multiple oscillators,
 waveform selection, filters, delay effects, and basic note playback through either the 
-keyboard or GUI buttons.
+[keyboard](#keyboard-mapping) or GUI buttons.
+
+## Screenshot
+<p align="center">
+  <img src="assets/main-screenshot.png" alt="Audio Synthesizer GUI" width="500"/>
+</p>
 
 ## Features
 - **Oscillators**
