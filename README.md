@@ -19,6 +19,7 @@ waveform selection, filters, delay effects, and basic note playback through eith
 ## Screenshot
 <p align="center">
   <img src="assets/main-screenshot.png" alt="Audio Synthesizer GUI" width="500"/>
+  <em>Main GUI with oscillators, envelopes, filters, delay and note buttons</em>
 </p>
 
 ## Features
