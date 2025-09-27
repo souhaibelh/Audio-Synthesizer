@@ -1,7 +1,7 @@
 # Audio Synthesizer
 Audio synthesizer that allows to play notes using multiple waveforms (sine, saw, square) with frequency offsets, filters, and delay effects
 
-## Table of contents
+## Table of Contents
 - [About](#about)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -9,6 +9,7 @@ Audio synthesizer that allows to play notes using multiple waveforms (sine, saw,
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage / Examples](#usage--examples)
+  - [Keyboard Mapping](#keyboard-mapping)
 
 ## About
 A simple audio synthesizer built with C++ and ImGui. It supports multiple oscillators,
@@ -58,3 +59,27 @@ Make sure you have the following installed on your system:
 - Run ```cmake -G "MinGW Makefiles" ..```
 - Run ```cmake --build .```
 - Run the .exe: 61610.synthetizer
+
+### Usage / Examples
+- Run the program from the build folder: ```./61610.synthetizer```
+- Adjust oscillator waveforms (sine, saw, square)
+- Apply frequency offsets (Oscillator 1 only)
+- Modify Attack/Release, Filter Cutoff, Filter Resonance
+- Experiment with Delay Time and Delay Mix
+- Use the Sample button to play a preloaded sample
+
+#### Keyboard Mapping
+| Keyboard | On-screen Button | Frequency (Hz) |
+|----------|------------------|----------------|
+| Q        | Button 0         | 220.00         |
+| Z        | Button 1         | 233.08         |
+| S        | Button 2         | 246.94         |
+| E        | Button 3         | 261.63         |
+| D        | Button 4         | 277.18         |
+| F        | Button 5         | 293.66         |
+| T        | Button 6         | 311.13         |
+| G        | Button 7         | 329.63         |
+| Y        | Button 8         | 349.23         |
+| H        | Button 9         | 369.99         |
+| U        | Button 10        | 392.00         |
+| J        | Button 11        | 415.30         |
